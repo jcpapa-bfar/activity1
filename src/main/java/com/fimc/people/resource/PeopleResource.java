@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -30,7 +31,13 @@ public class PeopleResource implements Serializable {
 			return Response.status(HttpServletResponse.SC_BAD_REQUEST).entity("All fields are required").type(MediaType.TEXT_PLAIN).build();
 		} else {
 			peoplelist.add(messageResponse);
-			return Response.ok().entity(peoplelist).build();
+			return Response.status(HttpServletResponse.SC_CREATED).entity(messageResponse).build();
 		}
+	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response hi(PeopleRequest request) {
+		return Response.ok().entity(peoplelist).build();
 	}
 }
